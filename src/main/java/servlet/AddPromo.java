@@ -3,6 +3,7 @@ package servlet;
 import dao.PromoDAO;
 import factory.PromoDAOFactory;
 import model.Promo;
+import org.apache.commons.compress.utils.IOUtils;
 import storage.CurrentUser;
 import storage.DataBase;
 import utils.IdGenerator;
@@ -11,7 +12,9 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Base64;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 10,
@@ -30,28 +33,25 @@ public class AddPromo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String uploadPath = getServletContext().getRealPath("") + File.separator + SAVE_DIR;
-        File uploadDir = new File(uploadPath);
-        String path = "";
-        if (!uploadDir.exists()) uploadDir.mkdir();
         int id = IdGenerator.generateId();
         String title = req.getParameter("title");
-        if (req.getPart("file") != null) {
-            Part part = req.getPart("file");
-            String fileName = getFileName(part);
-            part.write(uploadPath + File.separator + fileName + ".jpg");
-            path = uploadPath + File.separator + fileName + ".jpg";
+        String base64 = "";
+        try{
+            Part filePart = req.getPart("file");
+            InputStream iSteamReader = filePart.getInputStream();
+            byte[] imageBytes = IOUtils.toByteArray(iSteamReader);
+            base64 = Base64.getEncoder().encodeToString(imageBytes);
+        }catch(Exception e){
+            e.printStackTrace();
         }
+        String imageData = "data:image/png;base64," + base64;
         String lastName = req.getParameter("lastName");
         String promoInfo = req.getParameter("promoInfo");
         if (title.isEmpty() || promoInfo.isEmpty()) {
             req.setAttribute("error", "Empty fields!");
             req.getRequestDispatcher("/WEB-INF/views/addPromo.jsp").forward(req, resp);
         } else {
-            if (DataBase.promos.size() == 0){
-                DataBase.promos.add(new Promo(id, title, path, promoInfo, CurrentUser.getLastName()));
-            }
-            promoDAO.add(new Promo(id, title, path, promoInfo, lastName));
+            promoDAO.add(new Promo(id, title, imageData, promoInfo, lastName));
             req.getRequestDispatcher("/WEB-INF/views/addPromo.jsp").forward(req, resp);
         }
     }
