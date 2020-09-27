@@ -14,10 +14,10 @@
     <title>User Info</title>
 </head>
 <body>
-
-<header><a href="${pageContext.request.contextPath}/userPromo">Home</a></header>
-<header onclick="return false"><a href="${pageContext.request.contextPath}/userInfo">Cabinet</a></header>
-
+<header>
+    <a href="${pageContext.request.contextPath}/userPromo">Home</a>
+    <a onclick="return false" href="${pageContext.request.contextPath}/userInfo">Cabinet</a>
+</header>
 
     <form action="${pageContext.request.contextPath}/userInfo" method="post">
         <table border="1" cellpadding="5" align="center">

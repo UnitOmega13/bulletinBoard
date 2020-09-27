@@ -6,8 +6,10 @@
 </head>
 <body>
 
-<header onclick="return false"><a href="${pageContext.request.contextPath}/login" class="disabled">Login</a></header>
-<header><a href="${pageContext.request.contextPath}/registration">Registration</a></header>
+<header>
+    <a onclick="return false" href="${pageContext.request.contextPath}/login" class="disabled">Login</a>
+    <a href="${pageContext.request.contextPath}/registration">Registration</a>
+</header>
 
 <form method="POST" action="${pageContext.request.contextPath}/login">
     <input type="hidden" name="redirectId" value="${param.redirectId}"/>

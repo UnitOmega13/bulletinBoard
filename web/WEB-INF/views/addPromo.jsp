@@ -6,8 +6,10 @@
 </head>
 <body>
 
-<header><a href="${pageContext.request.contextPath}/userPromo">Home</a></header>
-<header><a href="${pageContext.request.contextPath}/userInfo">Cabinet</a></header>
+<header>
+    <a href="${pageContext.request.contextPath}/userPromo">Home</a>
+    <a href="${pageContext.request.contextPath}/userInfo">Cabinet</a>
+</header>
 
 <form enctype='multipart/form-data' method="POST" action="${pageContext.request.contextPath}/addPromo">
     <input type="hidden" name="redirectId" value="${param.redirectId}"/>

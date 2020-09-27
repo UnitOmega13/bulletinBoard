@@ -7,8 +7,10 @@
     <title>Promos</title>
 </head>
 <body>
-<header onclick="return false"><a href="${pageContext.request.contextPath}/userPromo">Home</a></header>
-<header><a href="${pageContext.request.contextPath}/userInfo">Cabinet</a></header>
+<header>
+    <a onclick="return false" href="${pageContext.request.contextPath}/userPromo">Home</a>
+    <a href="${pageContext.request.contextPath}/userInfo">Cabinet</a>
+</header>
 <table border="1" cellpadding="5" cellspacing="5" align="center">
     <c:forEach var="promo" items="${promoList}" begin="${(currentPage - 1) * 10}" end="${currentPage * 10}">
         <tbody>
