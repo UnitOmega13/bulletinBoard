@@ -11,13 +11,25 @@
 <header><a href="${pageContext.request.contextPath}/userInfo">Cabinet</a></header>
 <table border="1" cellpadding="5" cellspacing="5" align="center">
     <c:forEach var="promo" items="${promoList}" begin="${(currentPage - 1) * 10}" end="${currentPage * 10}">
+        <tbody>
         <tr>
-            <td><img alt="" src="<c:out value="${(promo.imageData)}"></c:out>"
-                     style="float:left; height:100px; margin-right:10px; width:100px"></td>
-            <td width="100"><c:out value="${promo.title}"></c:out></td>
+            <td rowspan="4"><img alt="" src="<c:out value="${(promo.imageData)}"></c:out>"
+                                 style="float:left; height:100px; margin-right:10px; width:100px"></td>
+        </tr>
+        <tr>
+            <td>Title</td>
+            <td><c:out value="${promo.title}"></c:out></td>
+        </tr>
+        <tr>
+            <td>Description</td>
             <td width="100"><c:out value="${promo.promoInfo}"></c:out></td>
+        </tr>
+        </tr>
+        <tr>
+            <td>Author</td>
             <td width="100"><c:out value="${promo.lastName}"></c:out></td>
         </tr>
+        </tbody>
     </c:forEach>
 </table>
 
