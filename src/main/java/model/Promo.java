@@ -15,6 +15,10 @@ public class Promo {
 
     @Getter
     @Setter
+    private String date;
+
+    @Getter
+    @Setter
     private String imageData;
 
     @Getter
@@ -25,9 +29,10 @@ public class Promo {
     @Setter
     private String lastName;
 
-    public Promo(int promoId, String title, String imageData, String promoInfo, String lastName) {
+    public Promo(int promoId, String title, String date, String imageData, String promoInfo, String lastName) {
         this.promoId = promoId;
         this.title = title;
+        this.date = date;
         this.imageData = imageData;
         this.promoInfo = promoInfo;
         this.lastName = lastName;

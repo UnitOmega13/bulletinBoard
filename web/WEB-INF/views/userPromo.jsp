@@ -15,7 +15,7 @@
     <c:forEach var="promo" items="${promoList}" begin="${(currentPage - 1) * 10}" end="${currentPage * 10}">
         <tbody>
         <tr>
-            <td rowspan="4"><img alt="" src="<c:out value="${(promo.imageData)}"></c:out>"
+            <td rowspan="5"><img alt="" src="<c:out value="${(promo.imageData)}"></c:out>"
                                  style="float:left; height:100px; margin-right:10px; width:100px"></td>
         </tr>
         <tr>
@@ -30,6 +30,10 @@
         <tr>
             <td>Author</td>
             <td width="100"><c:out value="${promo.lastName}"></c:out></td>
+        </tr>
+        <tr>
+            <td>Publication date</td>
+            <td width="100"><c:out value="${promo.date}"></c:out></td>
         </tr>
         </tbody>
     </c:forEach>

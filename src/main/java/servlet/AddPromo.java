@@ -14,7 +14,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
+import java.util.Date;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 10,
@@ -35,6 +38,9 @@ public class AddPromo extends HttpServlet {
             throws ServletException, IOException {
         int id = IdGenerator.generateId();
         String title = req.getParameter("title");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String date = dtf.format(now);
         String base64 = "";
         try{
             Part filePart = req.getPart("file");
@@ -51,7 +57,7 @@ public class AddPromo extends HttpServlet {
             req.setAttribute("error", "Empty fields!");
             req.getRequestDispatcher("/WEB-INF/views/addPromo.jsp").forward(req, resp);
         } else {
-            promoDAO.add(new Promo(id, title, imageData, promoInfo, lastName));
+            promoDAO.add(new Promo(id, title, date, imageData, promoInfo, lastName));
             req.getRequestDispatcher("/WEB-INF/views/addPromo.jsp").forward(req, resp);
         }
     }
